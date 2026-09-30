@@ -1,0 +1,545 @@
+<!--
+  Program name: form.html
+  Author: Safik
+  Date created: 09/21/2026
+  Date last edited: 09/30/2026
+  Version: 1.6
+  Description: Patient Registration Form
+  Note: Design and Layout Inspiration from https://www.austinregionalclinic.com/
+        Also some of the links might redirect to ARC webpages and other random pages.
+        Input types, DOM methods, standard form layouts etc. referenced from W3Schools.
+        This is a fictional project for educational purposes only.
+        v1.6: Fixed the reset button logic so slider text resets back to 5, 
+              added a placeholder to the notes to give users a hint about what to write, 
+              and fixed the name inputs so that the middle initial is visually grouped 
+              along with the input, and locked the notes textarea sizer to prevent layout breaks.
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Patient Registration - AuraMed Health System</title>
+    <!-- Connects our external stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- TOP HEADER / NAVIGATION BAR -->
+    <header class="site-header">
+      <div class="header-left">
+        <img src="images/main-logo.svg" alt="AuraMed Logo" class="brand-logo" />
+        <span class="company-name">AuraMed Health System</span>
+      </div>
+      <div class="header-right">Today is: <span id="current-date"></span></div>
+    </header>
+
+    <!-- MAIN CONTENT: PATIENT REGISTRATION FORM -->
+    <main class="site-main">
+      <div class="form-container">
+        <h1>New Patient Account Registration</h1>
+        <p class="form-instructions">
+          Please fill out the information below to set up your patient account
+          before your visit.
+        </p>
+
+        <!-- Redirect to thankyou page on submit -->
+        <form action="thankYou.html" class="patient-form">
+          <!-- SECTION 1: PERSONAL IDENTIFICATION -->
+          <fieldset class="form-section">
+            <legend class="section-title">1. Personal Identification</legend>
+
+            <div class="form-group">
+              <label for="firstName">Full Name:</label>
+              <div class="name-inputs-wrapper">
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  maxlength="30"
+                  placeholder="First Name"
+                  required
+                />
+                <input
+                  type="text"
+                  id="middleInitial"
+                  name="middleInitial"
+                  maxlength="1"
+                  placeholder="M.I."
+                />
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  maxlength="30"
+                  placeholder="Last Name"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="dateOfBirth">Date of Birth:</label>
+              <input type="date" id="dateOfBirth" name="dateOfBirth" required />
+            </div>
+
+            <div class="form-group">
+              <label for="socialSecurityNumber">Social Security Number:</label>
+              <input
+                type="password"
+                id="socialSecurityNumber"
+                name="socialSecurityNumber"
+                maxlength="11"
+                placeholder="000-00-0000"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <span class="label-text">Gender:</span>
+              <div class="radio-options">
+                <label
+                  ><input type="radio" name="gender" value="Male" required />
+                  Male</label
+                >
+                <label
+                  ><input type="radio" name="gender" value="Female" />
+                  Female</label
+                >
+                <label
+                  ><input type="radio" name="gender" value="Other" />
+                  Other</label
+                >
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- SECTION 2: ADDRESS & CONTACT DETAILS -->
+          <fieldset class="form-section">
+            <legend class="section-title">2. Address & Contact Details</legend>
+
+            <div class="form-group">
+              <label for="addressLine1">Address Line 1:</label>
+              <input
+                type="text"
+                id="addressLine1"
+                name="addressLine1"
+                maxlength="30"
+                placeholder="Street Address"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="addressLine2">Address Line 2:</label>
+              <input
+                type="text"
+                id="addressLine2"
+                name="addressLine2"
+                maxlength="30"
+                placeholder="Apt, Suite, Unit (Optional)"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="city">City, State, Zip:</label>
+              <div class="location-inputs-wrapper">
+                <input
+                  type="text"
+                  id="city"
+                  name="city"
+                  maxlength="30"
+                  placeholder="City"
+                  required
+                />
+                <!-- State dropdown menu -->
+                <select id="state" name="state" required>
+                  <option value="" disabled selected>State</option>
+                  <option value="AL">Alabama</option>
+                  <option value="AK">Alaska</option>
+                  <option value="AZ">Arizona</option>
+                  <option value="AR">Arkansas</option>
+                  <option value="CA">California</option>
+                  <option value="CO">Colorado</option>
+                  <option value="CT">Connecticut</option>
+                  <option value="DE">Delaware</option>
+                  <option value="FL">Florida</option>
+                  <option value="GA">Georgia</option>
+                  <option value="HI">Hawaii</option>
+                  <option value="ID">Idaho</option>
+                  <option value="IL">Illinois</option>
+                  <option value="IN">Indiana</option>
+                  <option value="IA">Iowa</option>
+                  <option value="KS">Kansas</option>
+                  <option value="KY">Kentucky</option>
+                  <option value="LA">Louisiana</option>
+                  <option value="ME">Maine</option>
+                  <option value="MD">Maryland</option>
+                  <option value="MA">Massachusetts</option>
+                  <option value="MI">Michigan</option>
+                  <option value="MN">Minnesota</option>
+                  <option value="MS">Mississippi</option>
+                  <option value="MO">Missouri</option>
+                  <option value="MT">Montana</option>
+                  <option value="NE">Nebraska</option>
+                  <option value="NV">Nevada</option>
+                  <option value="NH">New Hampshire</option>
+                  <option value="NJ">New Jersey</option>
+                  <option value="NM">New Mexico</option>
+                  <option value="NY">New York</option>
+                  <option value="NC">North Carolina</option>
+                  <option value="ND">North Dakota</option>
+                  <option value="OH">Ohio</option>
+                  <option value="OK">Oklahoma</option>
+                  <option value="OR">Oregon</option>
+                  <option value="PA">Pennsylvania</option>
+                  <option value="RI">Rhode Island</option>
+                  <option value="SC">South Carolina</option>
+                  <option value="SD">South Dakota</option>
+                  <option value="TN">Tennessee</option>
+                  <option value="TX">Texas</option>
+                  <option value="UT">Utah</option>
+                  <option value="VT">Vermont</option>
+                  <option value="VA">Virginia</option>
+                  <option value="WA">Washington</option>
+                  <option value="WV">West Virginia</option>
+                  <option value="WI">Wisconsin</option>
+                  <option value="WY">Wyoming</option>
+                </select>
+
+                <input
+                  type="text"
+                  id="zipCode"
+                  name="zipCode"
+                  minlength="5"
+                  maxlength="10"
+                  placeholder="Zip Code"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="name@example.com"
+                required
+              />
+            </div>
+          </fieldset>
+
+          <!-- SECTION 3: HEALTH ASSESSMENT & HISTORY -->
+          <fieldset class="form-section">
+            <legend class="section-title">
+              3. Health Assessment & History
+            </legend>
+
+            <div class="form-group">
+              <label
+                >Family Medical History:<br /><small
+                  >(Check all that apply)</small
+                ></label
+              >
+              <div class="checkbox-group">
+                <label
+                  ><input
+                    type="checkbox"
+                    name="familyHistory"
+                    value="Hypertension"
+                  />
+                  Hypertension (High Blood Pressure)</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="familyHistory"
+                    value="Diabetes"
+                  />
+                  Type 2 Diabetes Mellitus</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="familyHistory"
+                    value="HeartDisease"
+                  />
+                  Heart Disease / Stroke</label
+                >
+                <label
+                  ><input type="checkbox" name="familyHistory" value="Asthma" />
+                  Asthma / Chronic Lung Conditions</label
+                >
+                <label
+                  ><input type="checkbox" name="familyHistory" value="Cancer" />
+                  History of Malignancies / Cancer</label
+                >
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label
+                >Surgical History:<br /><small
+                  >(Check all that apply)</small
+                ></label
+              >
+              <div class="checkbox-group">
+                <label
+                  ><input
+                    type="checkbox"
+                    name="surgicalHistory"
+                    value="Appendectomy"
+                  />
+                  Appendectomy</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="surgicalHistory"
+                    value="Tonsillectomy"
+                  />
+                  Tonsillectomy</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="surgicalHistory"
+                    value="Orthopedic"
+                  />
+                  Joint Replacement / Orthopedic Surgery</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="surgicalHistory"
+                    value="Gallbladder"
+                  />
+                  Gallbladder Removal</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="surgicalHistory"
+                    value="Hernia"
+                  />
+                  Hernia Repair</label
+                >
+              </div>
+            </div>
+
+            <div class="form-group">
+              <span class="label-text">Do you have health insurance?</span>
+              <div class="radio-options">
+                <label
+                  ><input
+                    type="radio"
+                    name="hasInsurance"
+                    value="Yes"
+                    required
+                  />
+                  Yes</label
+                >
+                <label
+                  ><input type="radio" name="hasInsurance" value="No" />
+                  No</label
+                >
+              </div>
+            </div>
+
+            <div class="form-group">
+              <span class="label-text">Tobacco / Nicotine Use:</span>
+              <div class="radio-options">
+                <label
+                  ><input
+                    type="radio"
+                    name="tobaccoUse"
+                    value="Never"
+                    required
+                  />
+                  Never Used</label
+                >
+                <label
+                  ><input type="radio" name="tobaccoUse" value="Former" />
+                  Former User</label
+                >
+                <label
+                  ><input type="radio" name="tobaccoUse" value="Current" />
+                  Current User</label
+                >
+              </div>
+            </div>
+
+            <div class="form-group">
+              <span class="label-text">Alcohol Consumption:</span>
+              <div class="radio-options">
+                <label
+                  ><input
+                    type="radio"
+                    name="alcoholUse"
+                    value="None"
+                    required
+                  />
+                  Non-Drinker</label
+                >
+                <label
+                  ><input type="radio" name="alcoholUse" value="Occasional" />
+                  Occasional</label
+                >
+                <label
+                  ><input type="radio" name="alcoholUse" value="Regular" />
+                  Regular</label
+                >
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="activityLevel">Daily Activity Level:</label>
+              <div class="range-slider-wrapper">
+                <span>1 (Sedentary)</span>
+                <input
+                  type="range"
+                  id="activityLevel"
+                  name="activityLevel"
+                  min="1"
+                  max="10"
+                  value="5"
+                />
+                <span>10 (Extremely Active)</span>
+                <strong class="range-display" id="rangeValue">5</strong>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="symptoms">Current Symptoms / Notes:</label>
+              <textarea
+                id="symptoms"
+                name="symptoms"
+                rows="4"
+                maxlength="500"
+                placeholder="Please describe any current symptoms or medical notes..."
+              ></textarea>
+            </div>
+          </fieldset>
+
+          <!-- SECTION 4: PATIENT PORTAL CREDENTIALS -->
+          <fieldset class="form-section">
+            <legend class="section-title">4. Patient Portal Credentials</legend>
+
+            <div class="form-group">
+              <label for="username">Desired User ID:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                maxlength="20"
+                placeholder="Max 20 characters"
+                required
+              />
+            </div>
+            <!--Didnt enforce validation for password match -->
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                minlength="8"
+                placeholder="Must be at least 8 characters"
+                requireds
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Re-enter Password:</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                minlength="8"
+                placeholder="Must match above password"
+                required
+              />
+            </div>
+          </fieldset>
+
+          <!-- FORM BUTTONS -->
+          <div class="form-actions">
+            <button type="reset" class="btn btn-secondary">Reset Form</button>
+            <button type="submit" class="btn btn-primary">
+              Submit Registration
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <!-- FOOTER SECTION -->
+    <footer class="site-footer">
+      <div class="footer-left">
+        <p><strong>AuraMed Health System</strong></p>
+        <p>PO BOX 18881, Austin, TX 78723</p>
+      </div>
+
+      <div class="footer-center">
+        <a href="mailto:contact@auramed.com" class="contact-btn">CONTACT US</a>
+        <div class="footer-links">
+          <a href="https://www.austinregionalclinic.com/about">About Us</a>
+          <span>&bull;</span>
+          <a href="https://www.austinregionalclinic.com/about/history"
+            >History</a
+          >
+        </div>
+      </div>
+
+      <div class="footer-right">
+        <span class="footer-text">Follow us on</span>
+        <a href="https://www.facebook.com/AustinRegionalClinic/">
+          <img src="images/fb-logo.webp" alt="Facebook" class="social-logo" />
+        </a>
+        <a href="https://www.instagram.com/softcatmemes/?hl=en">
+          <img
+            src="images/insta-logo.webp"
+            alt="Instagram"
+            class="social-logo"
+          />
+        </a>
+        <a href="https://www.youtube.com/watch?v=bCmwCkNY85g">
+          <img src="images/yt-logo.webp" alt="YouTube" class="social-logo" />
+        </a>
+      </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+      // Automatically display date
+      const today = new Date();
+      const dateOptions = {
+        weekday: "long",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      };
+      document.getElementById("current-date").innerText =
+        today.toLocaleDateString("en-US", dateOptions);
+
+      // Update text number when moving the slider
+      const activitySlider = document.getElementById("activityLevel");
+      const rangeDisplay = document.getElementById("rangeValue");
+
+      activitySlider.addEventListener("input", function () {
+        rangeDisplay.innerText = this.value;
+      });
+
+      // Reset slider text back to 5 when the form is reset
+      document
+        .querySelector(".patient-form")
+        .addEventListener("reset", function () {
+          setTimeout(function () {
+            rangeDisplay.innerText = "5";
+          }, 10);
+        });
+    </script>
+  </body>
+</html>

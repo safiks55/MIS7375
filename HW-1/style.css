@@ -1,0 +1,371 @@
+/*
+  Program name: style.css
+  Author: Safik
+  Date created: 09/21/2026
+  Date last edited: 09/30/2026
+  Version: 1.6
+  Description: Stylesheet for AuraMed Health System patient registration form and confirmation page.
+  Note: CSS styling concepts (Flexbox, classes, form element styling etc.) referenced from W3Schools.
+        v1.6: Fixed colors for links so the About us/History and return button (on thank you page) 
+              don't turn purple after clicking them.
+*/
+
+/* 1. GLOBAL STYLES & DEFAULTS */
+/* Reset margins and paddings for consistency */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7f6;
+  color: #0a2540;
+  line-height: 1.5;
+  padding-bottom: 40px;
+}
+
+/* Global Style for all links on the page */
+a {
+  color: #028090;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #512da8;
+}
+
+/* 2. HEADER SECTION */
+.site-header {
+  background-color: #ffffff;
+  border-bottom: 3px solid #028090;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand-logo {
+  height: 150px;
+  width: auto;
+  object-fit: contain;
+}
+
+.company-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #0a2540;
+}
+
+.header-right {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+#current-date {
+  color: #028090;
+}
+
+/* 3. MAIN CONTENT & FORM LAYOUT*/
+.site-main {
+  max-width: 900px;
+  margin: 30px auto 0;
+  padding: 0 16px;
+}
+
+h1 {
+  font-size: 1.65rem;
+  color: #0a2540;
+  margin-bottom: 6px;
+}
+
+.form-instructions {
+  font-size: 0.95rem;
+  color: #4a5568;
+  margin-bottom: 24px;
+}
+
+.patient-form {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Section containers */
+.form-section {
+  border: none;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0;
+}
+
+/* Section header banner */
+.section-title {
+  width: 100%;
+  background-color: #e2ece9;
+  color: #028090;
+  padding: 12px 18px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-left: 4px solid #028090;
+}
+
+/* Individual form row/item */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 18px;
+  border-bottom: 1px solid #f0f4f8;
+}
+
+.form-group:last-child {
+  border-bottom: none;
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #0a2540;
+  margin-bottom: 6px;
+}
+
+.label-text {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #0a2540;
+  margin-bottom: 6px;
+}
+
+/* 4. INPUT, DROPDOWN, & TEXTAREA STYLES */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  color: #0a2540;
+  background-color: #ffffff;
+  border: 1.5px solid #b0bec5;
+  border-radius: 6px;
+}
+
+textarea {
+  resize: none; /* disabling manual box dragging */
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #028090;
+}
+
+/* Grouping name, mi, lastname in one row */
+.name-inputs-wrapper {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+#firstName,
+#lastName {
+  flex: 2;
+}
+
+#middleInitial {
+  flex: 0.7;
+  min-width: 60px;
+}
+
+/* Grouping city, state, zip in one row */
+.location-inputs-wrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.location-inputs-wrapper input[type="text"]:first-child {
+  flex: 2;
+}
+
+.location-inputs-wrapper select {
+  flex: 1;
+}
+
+.location-inputs-wrapper input[type="text"]:last-child {
+  flex: 1;
+}
+
+/* Checkbox and radio buttons setup*/
+.checkbox-group,
+.radio-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.checkbox-group label,
+.radio-options label {
+  font-weight: normal;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: #028090;
+}
+
+/* Range slider layout */
+.range-slider-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.range-display {
+  color: #028090;
+  font-size: 1rem;
+}
+
+/* 5. FORM ACTION BUTTONS */
+.form-actions {
+  text-align: center;
+  padding: 24px;
+  background-color: #f9fbfd;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.btn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 220px;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-secondary {
+  background-color: #e63946;
+  color: #ffffff;
+}
+
+.btn-primary {
+  background-color: #028090;
+  color: #ffffff;
+}
+
+/* 6. FOOTER SECTION */
+.site-footer {
+  background-color: #0a2540;
+  color: #f4f7f6;
+  padding: 24px;
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 6px;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.footer-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.footer-links {
+  font-size: 0.85rem;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+/* Footer specific hyperlink color */
+.footer-links a {
+  color: #ffffff;
+}
+
+.footer-links a:visited {
+  color: #b388ff;
+}
+.footer-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex: 1;
+}
+
+.social-logo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.contact-btn {
+  display: inline-block;
+  background-color: #028090;
+  color: #ffffff;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* Force contact/return to form button to be white when visited */
+.contact-btn:visited {
+  color: #ffffff;
+}
+
+/* Thank you page styles */
+.thank-you-box {
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.thank-you-message {
+  font-size: 1.1rem;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+.thank-you-actions {
+  margin-top: 16px;
+}
