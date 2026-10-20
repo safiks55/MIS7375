@@ -1,0 +1,104 @@
+<!--
+  Program name: thankYou.html
+  Author: Safik
+  Date created: 09/21/2026
+  Date last edited: 09/30/2026
+  Version: 1.6
+  Description: Patient Registration Success / Thank You Page
+  Note: v1.6: Added the registration success confirmation message and fixed return button.
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submission Confirmed - AuraMed Health System</title>
+    <!-- Referencing stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- TOP HEADER / NAVIGATION BAR -->
+    <header class="site-header">
+      <div class="header-left">
+        <img src="images/main-logo.svg" alt="AuraMed Logo" class="brand-logo" />
+        <span class="company-name">AuraMed Health System</span>
+      </div>
+      <div class="header-right">Today is: <span id="current-date"></span></div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="site-main">
+      <div class="patient-form thank-you-box">
+        <h1>Submission Successful</h1>
+        <p class="form-instructions thank-you-message">
+          Thank you for your submission, your request is being processed right
+          now and we will reach out to you shortly.
+        </p>
+
+        <div class="thank-you-actions">
+          <a href="form.html" class="contact-btn"
+            >Return to Registration Form</a
+          >
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER SECTION -->
+    <footer class="site-footer">
+      <div class="footer-left">
+        <p><strong>AuraMed Health System</strong></p>
+        <p>PO BOX 18881, Austin, TX 78723</p>
+      </div>
+
+      <div class="footer-center">
+        <a href="mailto:contact@auramed.com" class="contact-btn">CONTACT US</a>
+        <div class="footer-links">
+          <a href="https://www.austinregionalclinic.com/about" target="_blank"
+            >About Us</a
+          >
+          <span>&bull;</span>
+          <a
+            href="https://www.austinregionalclinic.com/about/history"
+            target="_blank"
+            >History</a
+          >
+        </div>
+      </div>
+
+      <div class="footer-right">
+        <span class="footer-text">Follow us on</span>
+        <a
+          href="https://www.facebook.com/AustinRegionalClinic/"
+          target="_blank"
+        >
+          <img src="images/fb-logo.webp" alt="Facebook" class="social-logo" />
+        </a>
+        <a href="https://www.instagram.com/softcatmemes/?hl=en" target="_blank">
+          <img
+            src="images/insta-logo.webp"
+            alt="Instagram"
+            class="social-logo"
+          />
+        </a>
+        <a href="https://www.youtube.com/watch?v=bCmwCkNY85g" target="_blank">
+          <img src="images/yt-logo.webp" alt="YouTube" class="social-logo" />
+        </a>
+      </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+      // Automatically display date in the header
+      const today = new Date();
+      const dateOptions = {
+        weekday: "long",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      };
+      document.getElementById("current-date").innerText =
+        today.toLocaleDateString("en-US", dateOptions);
+    </script>
+  </body>
+</html>
