@@ -1,12 +1,14 @@
 <!--
-  Program name: form.html
+  Program name: homework3.html
   Author: Safik
-  Date created: 09/21/2026
-  Date last edited: 09/30/2026
-  Version: 2.0 
-  Description: Patient Registration Form 
-  Note: Refactor form.html to use table structures
-        - Replaced div wrappers with HTML table elements (<table>, <tr>, <td>).
+  Date created: 09/19/2026
+  Date last edited: 10/21/2026
+  Version: 3.0 
+  Description: Patient Registration Form - HW3
+  Note: HW3 updates include:
+        - Added error message spans under input fields.
+        - Implemented Review  and Validate buttons with conditional Submit button display.
+        - Connected external script.js for real-time validation.
 -->
 <!doctype html>
 <html lang="en">
@@ -38,7 +40,12 @@
         </p>
 
         <!-- Redirect to thankyou page on submit -->
-        <form action="thankYou.html" class="patient-form">
+        <form
+          action="thankYou.html"
+          class="patient-form"
+          id="patientForm"
+          novalidate
+        >
           <!-- SECTION 1: PERSONAL IDENTIFICATION -->
           <fieldset class="form-section">
             <legend class="section-title">1. Personal Identification</legend>
@@ -53,6 +60,7 @@
                       id="firstName"
                       name="firstName"
                       maxlength="30"
+                      title="Enter 1-30 characters using only letters, apostrophes, and dashes."
                       placeholder="First Name"
                       required
                     />
@@ -61,6 +69,7 @@
                       id="middleInitial"
                       name="middleInitial"
                       maxlength="1"
+                      title="Enter a single letter for your middle initial (optional)."
                       placeholder="M.I."
                     />
                     <input
@@ -68,10 +77,12 @@
                       id="lastName"
                       name="lastName"
                       maxlength="30"
+                      title="Enter 1-30 characters using only letters, apostrophes, and dashes."
                       placeholder="Last Name"
                       required
                     />
                   </div>
+                  <span class="error-msg" id="nameError"></span>
                 </td>
               </tr>
 
@@ -82,8 +93,10 @@
                     type="date"
                     id="dateOfBirth"
                     name="dateOfBirth"
+                    title="Select or enter your date of birth in mm/dd/yyyy format (must be within last 120 years, no future dates)."
                     required
                   />
+                  <span class="error-msg" id="dobError"></span>
                 </td>
               </tr>
 
@@ -97,9 +110,11 @@
                     id="socialSecurityNumber"
                     name="socialSecurityNumber"
                     maxlength="11"
+                    title="Enter a valid 9-digit SSN (000-00-0000)."
                     placeholder="000-00-0000"
                     required
                   />
+                  <span class="error-msg" id="ssnError"></span>
                 </td>
               </tr>
 
@@ -112,19 +127,31 @@
                         type="radio"
                         name="gender"
                         value="Male"
+                        title="Select Male as your gender."
                         required
                       />
                       Male</label
                     >
                     <label
-                      ><input type="radio" name="gender" value="Female" />
+                      ><input
+                        type="radio"
+                        name="gender"
+                        value="Female"
+                        title="Select Female as your gender."
+                      />
                       Female</label
                     >
                     <label
-                      ><input type="radio" name="gender" value="Other" />
+                      ><input
+                        type="radio"
+                        name="gender"
+                        value="Other"
+                        title="Select Other as your gender."
+                      />
                       Other</label
                     >
                   </div>
+                  <span class="error-msg" id="genderError"></span>
                 </td>
               </tr>
             </table>
@@ -134,7 +161,7 @@
           <fieldset class="form-section">
             <legend class="section-title">2. Address & Contact Details</legend>
 
-            <table class="form-table" width="100%">
+            <table class="form-table">
               <tr>
                 <td>
                   <label for="addressLine1">Address Line 1:</label>
@@ -143,9 +170,11 @@
                     id="addressLine1"
                     name="addressLine1"
                     maxlength="30"
+                    title="Enter street address between 2 and 30 characters."
                     placeholder="Street Address"
                     required
                   />
+                  <span class="error-msg" id="address1Error"></span>
                 </td>
               </tr>
 
@@ -157,8 +186,10 @@
                     id="addressLine2"
                     name="addressLine2"
                     maxlength="30"
+                    title="Enter apartment, suite, or unit number up to 30 characters (optional)."
                     placeholder="Apt, Suite, Unit (Optional)"
                   />
+                  <span class="error-msg" id="address2Error"></span>
                 </td>
               </tr>
 
@@ -171,11 +202,17 @@
                       id="city"
                       name="city"
                       maxlength="30"
+                      title="Enter city name using only letters, spaces, or hyphens (2-30 characters)."
                       placeholder="City"
                       required
                     />
-                    <!-- State dropdown menu -->
-                    <select id="state" name="state" required>
+                    <!-- State dropdown menu with all 50 states, DC, and PR including NULL entry -->
+                    <select
+                      id="state"
+                      name="state"
+                      title="Please select your state from the dropdown list."
+                      required
+                    >
                       <option value="" disabled selected>State</option>
                       <option value="AL">Alabama</option>
                       <option value="AK">Alaska</option>
@@ -185,6 +222,7 @@
                       <option value="CO">Colorado</option>
                       <option value="CT">Connecticut</option>
                       <option value="DE">Delaware</option>
+                      <option value="DC">District of Columbia</option>
                       <option value="FL">Florida</option>
                       <option value="GA">Georgia</option>
                       <option value="HI">Hawaii</option>
@@ -215,6 +253,7 @@
                       <option value="OK">Oklahoma</option>
                       <option value="OR">Oregon</option>
                       <option value="PA">Pennsylvania</option>
+                      <option value="PR">Puerto Rico</option>
                       <option value="RI">Rhode Island</option>
                       <option value="SC">South Carolina</option>
                       <option value="SD">South Dakota</option>
@@ -233,12 +272,13 @@
                       type="text"
                       id="zipCode"
                       name="zipCode"
-                      minlength="5"
-                      maxlength="10"
+                      maxlength="5"
+                      title="Enter a 5-digit ZIP code."
                       placeholder="Zip Code"
                       required
                     />
                   </div>
+                  <span class="error-msg" id="locationError"></span>
                 </td>
               </tr>
 
@@ -249,9 +289,11 @@
                     type="email"
                     id="email"
                     name="email"
+                    title="Enter a valid email address in format name@domain.tld (forced to lowercase)."
                     placeholder="name@example.com"
                     required
                   />
+                  <span class="error-msg" id="emailError"></span>
                 </td>
               </tr>
             </table>
@@ -263,7 +305,7 @@
               3. Health Assessment & History
             </legend>
 
-            <table class="form-table" width="100%">
+            <table class="form-table">
               <tr>
                 <td>
                   <label
@@ -277,6 +319,7 @@
                         type="checkbox"
                         name="familyHistory"
                         value="Hypertension"
+                        title="Check if family has a history of Hypertension."
                       />
                       Hypertension (High Blood Pressure)</label
                     >
@@ -285,6 +328,7 @@
                         type="checkbox"
                         name="familyHistory"
                         value="Diabetes"
+                        title="Check if family has a history of Type 2 Diabetes."
                       />
                       Type 2 Diabetes Mellitus</label
                     >
@@ -293,6 +337,7 @@
                         type="checkbox"
                         name="familyHistory"
                         value="HeartDisease"
+                        title="Check if family has a history of Heart Disease or Stroke."
                       />
                       Heart Disease / Stroke</label
                     >
@@ -301,6 +346,7 @@
                         type="checkbox"
                         name="familyHistory"
                         value="Asthma"
+                        title="Check if family has a history of Asthma or Lung Conditions."
                       />
                       Asthma / Chronic Lung Conditions</label
                     >
@@ -309,6 +355,7 @@
                         type="checkbox"
                         name="familyHistory"
                         value="Cancer"
+                        title="Check if family has a history of Malignancies or Cancer."
                       />
                       History of Malignancies / Cancer</label
                     >
@@ -329,6 +376,7 @@
                         type="checkbox"
                         name="surgicalHistory"
                         value="Appendectomy"
+                        title="Check if you have had an Appendectomy."
                       />
                       Appendectomy</label
                     >
@@ -337,6 +385,7 @@
                         type="checkbox"
                         name="surgicalHistory"
                         value="Tonsillectomy"
+                        title="Check if you have had a Tonsillectomy."
                       />
                       Tonsillectomy</label
                     >
@@ -345,6 +394,7 @@
                         type="checkbox"
                         name="surgicalHistory"
                         value="Orthopedic"
+                        title="Check if you have had Joint Replacement or Orthopedic Surgery."
                       />
                       Joint Replacement / Orthopedic Surgery</label
                     >
@@ -353,6 +403,7 @@
                         type="checkbox"
                         name="surgicalHistory"
                         value="Gallbladder"
+                        title="Check if you have had Gallbladder Removal."
                       />
                       Gallbladder Removal</label
                     >
@@ -361,6 +412,7 @@
                         type="checkbox"
                         name="surgicalHistory"
                         value="Hernia"
+                        title="Check if you have had a Hernia Repair."
                       />
                       Hernia Repair</label
                     >
@@ -377,15 +429,22 @@
                         type="radio"
                         name="hasInsurance"
                         value="Yes"
+                        title="Select Yes if you currently have health insurance."
                         required
                       />
                       Yes</label
                     >
                     <label
-                      ><input type="radio" name="hasInsurance" value="No" />
+                      ><input
+                        type="radio"
+                        name="hasInsurance"
+                        value="No"
+                        title="Select No if you do not have health insurance."
+                      />
                       No</label
                     >
                   </div>
+                  <span class="error-msg" id="insuranceError"></span>
                 </td>
               </tr>
 
@@ -398,19 +457,31 @@
                         type="radio"
                         name="tobaccoUse"
                         value="Never"
+                        title="Select Never Used for tobacco/nicotine."
                         required
                       />
                       Never Used</label
                     >
                     <label
-                      ><input type="radio" name="tobaccoUse" value="Former" />
+                      ><input
+                        type="radio"
+                        name="tobaccoUse"
+                        value="Former"
+                        title="Select Former User for tobacco/nicotine."
+                      />
                       Former User</label
                     >
                     <label
-                      ><input type="radio" name="tobaccoUse" value="Current" />
+                      ><input
+                        type="radio"
+                        name="tobaccoUse"
+                        value="Current"
+                        title="Select Current User for tobacco/nicotine."
+                      />
                       Current User</label
                     >
                   </div>
+                  <span class="error-msg" id="tobaccoError"></span>
                 </td>
               </tr>
 
@@ -423,6 +494,7 @@
                         type="radio"
                         name="alcoholUse"
                         value="None"
+                        title="Select Non-Drinker for alcohol consumption."
                         required
                       />
                       Non-Drinker</label
@@ -432,14 +504,21 @@
                         type="radio"
                         name="alcoholUse"
                         value="Occasional"
+                        title="Select Occasional for alcohol consumption."
                       />
                       Occasional</label
                     >
                     <label
-                      ><input type="radio" name="alcoholUse" value="Regular" />
+                      ><input
+                        type="radio"
+                        name="alcoholUse"
+                        value="Regular"
+                        title="Select Regular for alcohol consumption."
+                      />
                       Regular</label
                     >
                   </div>
+                  <span class="error-msg" id="alcoholError"></span>
                 </td>
               </tr>
 
@@ -455,6 +534,7 @@
                       min="1"
                       max="10"
                       value="5"
+                      title="Slide to rate your daily physical activity level from 1 (Sedentary) to 10 (Extremely Active)."
                     />
                     <span>10 (Extremely Active)</span>
                     <strong class="range-display" id="rangeValue">5</strong>
@@ -470,6 +550,7 @@
                     name="symptoms"
                     rows="4"
                     maxlength="500"
+                    title="Enter any medical symptoms or personal notes (up to 500 characters)."
                     placeholder="Please describe any current symptoms or medical notes..."
                   ></textarea>
                 </td>
@@ -481,7 +562,7 @@
           <fieldset class="form-section">
             <legend class="section-title">4. Patient Portal Credentials</legend>
 
-            <table class="form-table" width="100%">
+            <table class="form-table">
               <tr>
                 <td>
                   <label for="username">Desired User ID:</label>
@@ -490,13 +571,14 @@
                     id="username"
                     name="username"
                     maxlength="20"
-                    placeholder="Max 20 characters"
+                    title="Enter 5 to 20 characters (letters, numbers, dash, underscore; cannot start with a number)."
+                    placeholder="5-20 characters"
                     required
                   />
+                  <span class="error-msg" id="usernameError"></span>
                 </td>
               </tr>
 
-              <!--Didnt enforce validation for password match -->
               <tr>
                 <td>
                   <label for="password">Password:</label>
@@ -505,9 +587,11 @@
                     id="password"
                     name="password"
                     minlength="8"
+                    title="Password must be at least 8 characters, containing at least 1 uppercase, 1 lowercase, and 1 digit. Cannot equal username."
                     placeholder="Must be at least 8 characters"
                     required
                   />
+                  <span class="error-msg" id="passwordError"></span>
                 </td>
               </tr>
 
@@ -519,9 +603,11 @@
                     id="confirmPassword"
                     name="confirmPassword"
                     minlength="8"
+                    title="Re-enter your password to confirm match."
                     placeholder="Must match above password"
                     required
                   />
+                  <span class="error-msg" id="confirmPasswordError"></span>
                 </td>
               </tr>
             </table>
@@ -529,12 +615,25 @@
 
           <!-- FORM BUTTONS -->
           <div class="form-actions">
+            <button type="button" id="reviewBtn" class="btn btn-secondary">
+              Review Registration
+            </button>
+            <button type="button" id="validateBtn" class="btn btn-primary">
+              Validate Form
+            </button>
             <button type="reset" class="btn btn-secondary">Reset Form</button>
-            <button type="submit" class="btn btn-primary">
+            <!-- Submit button starts disabled/hidden until validation passes -->
+            <button type="submit" id="submitBtn" class="btn btn-primary">
               Submit Registration
             </button>
           </div>
         </form>
+
+        <!-- DYNAMIC REVIEW DISPLAY AREA -->
+        <div id="reviewArea" class="review-container">
+          <h2 class="review-title">Registration Review</h2>
+          <div id="reviewContent"></div>
+        </div>
       </div>
     </main>
 
@@ -574,35 +673,7 @@
       </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-      // Automatically display date
-      const today = new Date();
-      const dateOptions = {
-        weekday: "long",
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      };
-      document.getElementById("current-date").innerText =
-        today.toLocaleDateString("en-US", dateOptions);
-
-      // Update text number when moving the slider
-      const activitySlider = document.getElementById("activityLevel");
-      const rangeDisplay = document.getElementById("rangeValue");
-
-      activitySlider.addEventListener("input", function () {
-        rangeDisplay.innerText = this.value;
-      });
-
-      // Reset slider text back to 5 when the form is reset
-      document
-        .querySelector(".patient-form")
-        .addEventListener("reset", function () {
-          setTimeout(function () {
-            rangeDisplay.innerText = "5";
-          }, 10);
-        });
-    </script>
+    <!-- EXTERNAL JAVASCRIPT LINK -->
+    <script src="script.js" defer></script>
   </body>
 </html>

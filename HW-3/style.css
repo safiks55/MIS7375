@@ -2,11 +2,11 @@
   Program name: style.css
   Author: Safik
   Date created: 09/21/2026
-  Date last edited: 09/30/2026
-  Version: 2.0
+  Date last edited: 10/21/2026
+  Version: 3.0
   Description: Stylesheet for AuraMed Health System
-  Note: Refactor style.css to use table structures
-        - Added styling for .form-table td and row-border to maintain original spacing and design.
+  Note: HW3 updates include:
+        - Added styling for error message for validation warnings.
 */
 
 /* 1. GLOBAL STYLES & DEFAULTS */
@@ -295,6 +295,9 @@ input[type="checkbox"] {
   background-color: #028090;
   color: #ffffff;
 }
+#submitBtn {
+  display: none; /* Initially hidden until validation passes */
+}
 
 /* 6. FOOTER SECTION */
 .site-footer {
@@ -385,4 +388,56 @@ input[type="checkbox"] {
 
 .thank-you-actions {
   margin-top: 16px;
+}
+
+/* Error message styling */
+.error-msg {
+  display: block;
+  color: #d90429;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* Review Container & Header Styles */
+.review-container {
+  display: none;
+  margin-top: 24px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 2px solid #028090;
+  border-radius: 6px;
+}
+
+.review-title {
+  color: #0a2540;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #028090;
+  padding-bottom: 6px;
+}
+
+/* Review tab styling */
+.review-val-error {
+  color: #d90429;
+  font-weight: bold;
+}
+
+.review-val-success {
+  color: #028090; /* Nice vibrant teal/green for (Pass) */
+  font-weight: bold;
+}
+
+.review-val-invalid-input {
+  color: #0a2540;
+  font-weight: 600;
+}
+
+/* Optional field styling in the review tab */
+.review-val-optional {
+  color: #6c757d;
+  font-style: italic;
+}
+
+.review-required-tag {
+  color: #d90429;
 }
