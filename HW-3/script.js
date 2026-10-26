@@ -3,7 +3,7 @@
   Author: Safik
   Date created: 09/19/2026
   Date last edited: 10/22/2026
-  Version: 3.0
+  Version: 3.1
   Description: External JavaScript for AuraMed Patient Registration Form
   Note: HW3 updates include:
         - Implemented validation across all form fields using name attributes.
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // --- Date of Birth Validation ---
-  const dobInput = formEl
+ const dobInput = formEl
     ? formEl.elements["dateOfBirth"]
     : document.querySelector('[name="dateOfBirth"]');
   const dobError = document.getElementById("dobError");
@@ -137,17 +137,22 @@ document.addEventListener("DOMContentLoaded", function () {
       dobError.innerText = "Date of birth is required.";
       return false;
     }
+
+    // Get today's date in local YYYY-MM-DD format
+    const today = new Date().toISOString().split("T")[0];
+
+    // Direct string comparison for future dates (avoids UTC timezone bugs)
+    if (dobInput.value > today) {
+      dobError.innerText = "Date of birth cannot be in the future.";
+      return false;
+    }
+
     const dobDate = new Date(dobInput.value);
     const currentDate = new Date();
-
-    // Calculate 120 years ago
     const minDate = new Date();
     minDate.setFullYear(currentDate.getFullYear() - 120);
 
-    if (dobDate > currentDate) {
-      dobError.innerText = "Date of birth cannot be in the future.";
-      return false;
-    } else if (dobDate < minDate) {
+    if (dobDate < minDate) {
       dobError.innerText = "Date of birth cannot be more than 120 years ago.";
       return false;
     } else {
