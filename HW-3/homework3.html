@@ -289,7 +289,8 @@
                     type="email"
                     id="email"
                     name="email"
-                    title="Enter a valid email address in format name@domain.tld (forced to lowercase)."
+                    maxlength="50"
+                    title="Enter a valid email address in format name@domain.tld (max 50 characters, forced to lowercase)."
                     placeholder="name@example.com"
                     required
                   />
@@ -623,14 +624,14 @@
             </button>
             <button type="reset" class="btn btn-secondary">Reset Form</button>
             <!-- Submit button starts disabled/hidden until validation passes -->
-            <button type="submit" id="submitBtn" class="btn btn-primary">
+            <button type="submit" id="submitBtn" class="btn btn-primary hidden">
               Submit Registration
             </button>
           </div>
         </form>
 
         <!-- DYNAMIC REVIEW DISPLAY AREA -->
-        <div id="reviewArea" class="review-container">
+        <div id="reviewArea" class="review-container hidden">
           <h2 class="review-title">Registration Review</h2>
           <div id="reviewContent"></div>
         </div>

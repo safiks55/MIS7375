@@ -2,8 +2,8 @@
   Program name: style.css
   Author: Safik
   Date created: 09/21/2026
-  Date last edited: 10/21/2026
-  Version: 3.0
+  Date last edited: 10/27/2026
+  Version: 3.1
   Description: Stylesheet for AuraMed Health System
   Note: HW3 updates include:
         - Added styling for error message for validation warnings.
@@ -295,9 +295,6 @@ input[type="checkbox"] {
   background-color: #028090;
   color: #ffffff;
 }
-#submitBtn {
-  display: none; /* Initially hidden until validation passes */
-}
 
 /* 6. FOOTER SECTION */
 .site-footer {
@@ -401,7 +398,6 @@ input[type="checkbox"] {
 
 /* Review Container & Header Styles */
 .review-container {
-  display: none;
   margin-top: 24px;
   padding: 20px;
   background-color: #ffffff;
@@ -440,4 +436,9 @@ input[type="checkbox"] {
 
 .review-required-tag {
   color: #d90429;
+}
+
+/* Hiding buttons initially */
+.hidden {
+  display: none !important;
 }
