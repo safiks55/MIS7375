@@ -2,8 +2,8 @@
   Program name: script.js
   Author: Safik
   Date created: 09/19/2026
-  Date last edited: 10/22/2026
-  Version: 3.1
+  Date last edited: 10/27/2026
+  Version: 3.2
   Description: External JavaScript for AuraMed Patient Registration Form
   Note: HW3 updates include:
         - Implemented validation across all form fields using name attributes.
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     currentDateEl.innerText = today.toLocaleDateString("en-US", dateOptions);
   }
 
-  // Activity level range slider displayupdate
+  // Activity level range slider display update
   const activitySlider = formEl
     ? formEl.elements["activityLevel"]
     : document.querySelector('[name="activityLevel"]');
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // --- Date of Birth Validation ---
- const dobInput = formEl
+  const dobInput = formEl
     ? formEl.elements["dateOfBirth"]
     : document.querySelector('[name="dateOfBirth"]');
   const dobError = document.getElementById("dobError");
@@ -139,10 +139,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Get today's date in local YYYY-MM-DD format
-    const today = new Date().toISOString().split("T")[0];
+    const todayStr = new Date().toISOString().split("T")[0];
 
     // Direct string comparison for future dates (avoids UTC timezone bugs)
-    if (dobInput.value > today) {
+    if (dobInput.value > todayStr) {
       dobError.innerText = "Date of birth cannot be in the future.";
       return false;
     }
@@ -297,15 +297,22 @@ document.addEventListener("DOMContentLoaded", function () {
   const emailError = document.getElementById("emailError");
 
   function validateEmail() {
-    if (emailInput.value) {
+    if (emailInput && emailInput.value) {
       emailInput.value = emailInput.value.toLowerCase();
     }
+    const emailVal = emailInput ? emailInput.value.trim() : "";
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (!emailInput.value) {
+    if (!emailVal) {
       emailError.innerText = "Email address is required.";
       return false;
-    } else if (!emailRegex.test(emailInput.value)) {
+    } else if (emailVal.length < 5) {
+      emailError.innerText = "Email address is too short.";
+      return false;
+    } else if (emailVal.length > 50) {
+      emailError.innerText = "Email address cannot exceed 50 characters.";
+      return false;
+    } else if (!emailRegex.test(emailVal)) {
       emailError.innerText = "Email must be in format name@domain.tld";
       return false;
     } else {
@@ -376,7 +383,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 digit.";
       return false;
     } else if (user && pwd === user) {
-      passwordError.innerText = "Password cannot equal your User ID.";
+      passwordError.innerText = "Password cannot be same as your User ID.";
       return false;
     } else {
       passwordError.innerText = "";
@@ -552,7 +559,7 @@ document.addEventListener("DOMContentLoaded", function () {
         pwdDisplayHtml = `<p><strong>${pwdLabel}:</strong> ******** <span class="review-val-success">(Pass)</span></p>`;
       }
 
-      // Assemble review box 
+      // Assemble review box
       reviewContent.innerHTML =
         nameDisplayHtml +
         formatReviewField(dobInput, dobError, "Date of Birth", "dateOfBirth") +
@@ -574,7 +581,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ) +
         pwdDisplayHtml;
 
-      reviewArea.style.display = "block";
+      reviewArea.classList.remove("hidden");
     });
   }
 
@@ -612,10 +619,10 @@ document.addEventListener("DOMContentLoaded", function () {
         alert(
           "Validation Successful! All entries are correct. You may now submit your registration.",
         );
-        submitBtn.style.display = "inline-block";
+        if (submitBtn) submitBtn.classList.remove("hidden");
       } else {
         alert("Please correct the highlighted errors before submitting.");
-        submitBtn.style.display = "none";
+        if (submitBtn) submitBtn.classList.add("hidden");
       }
     });
   }
@@ -623,10 +630,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // Hide submit button if any field is edited/changed afterwards
   if (formEl) {
     formEl.addEventListener("input", function () {
-      if (submitBtn) submitBtn.style.display = "none";
+      if (submitBtn) submitBtn.classList.add("hidden");
     });
     formEl.addEventListener("change", function () {
-      if (submitBtn) submitBtn.style.display = "none";
+      if (submitBtn) submitBtn.classList.add("hidden");
     });
   }
 });
