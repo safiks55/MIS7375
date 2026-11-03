@@ -469,6 +469,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (reviewBtn) {
     reviewBtn.addEventListener("click", function () {
+      validateNames();
+      validateDOB();
+      validateSSN();
+      validateAddress1();
+      validateAddress2();
+      validateLocation();
+      validateEmail();
+      validateUsername();
       validatePassword();
       validateConfirmPassword();
 
